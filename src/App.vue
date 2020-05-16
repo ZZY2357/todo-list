@@ -1,28 +1,46 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div class="container">
+        <h1 class="title">TODO-LIST</h1>
+        <p class="subtitle">By ZZY2357</p>
+        <div class="field has-addons">
+            <div class="control is-expanded">
+                <input
+                    type="text"
+                    class="input"
+                    v-model="todoOnChange.title"
+                    @keyup.enter="addTodo"
+                />
+            </div>
+            <div class="control">
+                <button class="button is-primary control" @click="addTodo">
+                    Add
+                </button>
+            </div>
+        </div>
+        <list></list>
+    </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import list from './components/list';
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+    data() {
+        return {
+            todoOnChange: {
+                title: '写作业'
+            }
+        };
+    },
+    methods: {
+        addTodo() {
+            this.$store.commit('addTodo', {
+                title: this.todoOnChange.title,
+                id: new Date().getTime() + '' + Math.random()
+            });
+        }
+    },
+    components: {
+        list
+    }
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
