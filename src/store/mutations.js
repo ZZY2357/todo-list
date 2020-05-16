@@ -1,7 +1,11 @@
 export default {
     addTodo(state, todo) {
-        state.todos.push(todo);
-        this.commit('saveData');
+        if (todo.title) {
+            state.todos.push(todo);
+            this.commit('saveData');
+        } else {
+            console.log('输入为空');
+        }
     },
     removeTodo(state, todoId) {
         for (let i = 0; i < this.state.todos.length; i++) {
